@@ -377,6 +377,12 @@ export interface ApiAriticleAriticle extends Schema.CollectionType {
     Name: Attribute.String & Attribute.Required;
     Email: Attribute.String;
     Text: Attribute.String;
+    mobile: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 10;
+        maxLength: 10;
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

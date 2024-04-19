@@ -17,7 +17,7 @@ function SignIn(){
     })
 
   return (
-<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+<div style={{justifyContent: 'center', alignItems: 'center'}}>
   {value?<Forms/> :
     <button 
       onClick={handleClick} 

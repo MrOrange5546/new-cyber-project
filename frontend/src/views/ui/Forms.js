@@ -7,7 +7,7 @@ const addUser = async (data) => {
   try {
     const response = await axios.post("http://localhost:1337/api/ariticles", { data }, {
       headers: {
-        Authorization: `Bearer 057eb14db95613f9cf9dca24b33eed8f7b019f9c48792db5ff208d78738ca50daf5148843e4fbc5567f8d7063ff9811d357014743ed3c4cce963e9a8bd585bf980faf991167a0e06f506725d4f4e7d371c9412a5c90edf5e3ecdeb734edc488649b03bb750d34321a59b43c3cf375f232b9e2a4d652565714f0e5b85efa05832`
+        Authorization: `Bearer 7d5cb43a31fee9e8ca80a208bb81ef0f3fe4fd4db714550c71c244f3fdb1fb3feacccc3fa118fc31ac4e333dc0cffd2f5e40aa8dda3ef3bae6cf25168ea3716f9d97b1eddfd3a44ea575090061bf561bc772a337a86652ff9b556f40af286213b457add0576761196c03f9cf03b5bf6fa771154c6744fcda414347cbb3b0a351`
       }
     });
     return response.data; // Return the response data
@@ -22,7 +22,7 @@ const fetchData = async () => {
   try {
     const response = await axios.get("http://localhost:1337/api/ariticles", {
       headers: {
-        Authorization: `Bearer 057eb14db95613f9cf9dca24b33eed8f7b019f9c48792db5ff208d78738ca50daf5148843e4fbc5567f8d7063ff9811d357014743ed3c4cce963e9a8bd585bf980faf991167a0e06f506725d4f4e7d371c9412a5c90edf5e3ecdeb734edc488649b03bb750d34321a59b43c3cf375f232b9e2a4d652565714f0e5b85efa05832`
+        Authorization: `Bearer 7d5cb43a31fee9e8ca80a208bb81ef0f3fe4fd4db714550c71c244f3fdb1fb3feacccc3fa118fc31ac4e333dc0cffd2f5e40aa8dda3ef3bae6cf25168ea3716f9d97b1eddfd3a44ea575090061bf561bc772a337a86652ff9b556f40af286213b457add0576761196c03f9cf03b5bf6fa771154c6744fcda414347cbb3b0a351`
       }
     });
     return response.data.data; // Return the response data
@@ -36,7 +36,8 @@ const Forms = () => {
   const [formData, setFormData] = useState({
     Name: "",
     Email: "",
-    Text: ""
+    Text: "",
+    mobile:""
   });
   const [tableData, setTableData] = useState([]);
 
@@ -59,11 +60,15 @@ const Forms = () => {
     try {
       await addUser(formData); // Call the addUser function with the formData
       console.log("Data submitted successfully");
+      fetchData().then(data => {
+        setTableData(data);
+      });
       // Reset form data after successful submission if needed
       setFormData({
         Name: "",
         Email: "",
-        Text: ""
+        Text: "",
+        mobile: ""
       });
     } catch (error) {
       console.error("Error submitting data:", error);
@@ -110,6 +115,17 @@ const Forms = () => {
                     name="Text"
                     type="textarea"
                     value={formData.Text}
+                    onChange={handleChange}
+                    required  
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="exampleMobile">Mobile</Label>
+                  <Input
+                    id="exampleText"
+                    name="mobile"
+                    type="text"
+                    value={formData.mobile}
                     onChange={handleChange}
                     required  
                   />
