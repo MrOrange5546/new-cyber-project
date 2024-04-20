@@ -7,7 +7,7 @@ const addUser = async (data) => {
   try {
     const response = await axios.post("http://localhost:1337/api/ariticles", { data }, {
       headers: {
-        Authorization: `Bearer 7d5cb43a31fee9e8ca80a208bb81ef0f3fe4fd4db714550c71c244f3fdb1fb3feacccc3fa118fc31ac4e333dc0cffd2f5e40aa8dda3ef3bae6cf25168ea3716f9d97b1eddfd3a44ea575090061bf561bc772a337a86652ff9b556f40af286213b457add0576761196c03f9cf03b5bf6fa771154c6744fcda414347cbb3b0a351`
+        Authorization: `Bearer 52143840de71cc58938ce432097db20d27237003cb2d98ec025ccf3510de6d551d132d845f78a8b949f1ccfc7eda9797ea17fee91d31d0a911020f9bfd974840e5ba14088e9422b6a3a8a2e399666acccf2f44ace52539c0048be508f7d3bfc509952bb11d6bc888b969cbb9b12c408f64cfe2e8a5faf00006d6f07509ba0c4b`
       }
     });
     return response.data; // Return the response data
@@ -22,7 +22,7 @@ const fetchData = async () => {
   try {
     const response = await axios.get("http://localhost:1337/api/ariticles", {
       headers: {
-        Authorization: `Bearer 7d5cb43a31fee9e8ca80a208bb81ef0f3fe4fd4db714550c71c244f3fdb1fb3feacccc3fa118fc31ac4e333dc0cffd2f5e40aa8dda3ef3bae6cf25168ea3716f9d97b1eddfd3a44ea575090061bf561bc772a337a86652ff9b556f40af286213b457add0576761196c03f9cf03b5bf6fa771154c6744fcda414347cbb3b0a351`
+        Authorization: `Bearer 52143840de71cc58938ce432097db20d27237003cb2d98ec025ccf3510de6d551d132d845f78a8b949f1ccfc7eda9797ea17fee91d31d0a911020f9bfd974840e5ba14088e9422b6a3a8a2e399666acccf2f44ace52539c0048be508f7d3bfc509952bb11d6bc888b969cbb9b12c408f64cfe2e8a5faf00006d6f07509ba0c4b`
       }
     });
     return response.data.data; // Return the response data
