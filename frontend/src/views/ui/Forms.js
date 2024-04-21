@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Row, Col, CardTitle, CardBody, Button, Form, FormGroup, Label, Input, Table } from "reactstrap";
+import { Card, Row, Col, CardTitle, CardBody, Button, Form, FormGroup, Label, Input } from "reactstrap";
 import axios from "axios";
 
 // Function to add user
@@ -37,7 +37,7 @@ const Forms = () => {
     Name: "",
     Email: "",
     Text: "",
-    mobile:""
+    mobile: ""
   });
   const [tableData, setTableData] = useState([]);
 
@@ -50,7 +50,7 @@ const Forms = () => {
         console.error("Error fetching data:", error);
       });
   }, []);
-  console.log(tableData);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -58,12 +58,11 @@ const Forms = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addUser(formData); // Call the addUser function with the formData
+      await addUser(formData);
       console.log("Data submitted successfully");
       fetchData().then(data => {
         setTableData(data);
       });
-      // Reset form data after successful submission if needed
       setFormData({
         Name: "",
         Email: "",
@@ -76,93 +75,87 @@ const Forms = () => {
   };
 
   return (
-    <>
-      <Row>
-        <Col>
-          <Card>
-            <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-              <i className="bi bi-bell me-2"> </i>
-              หน้าแรก
-            </CardTitle>
-            <CardBody>
-              <Form onSubmit={handleSubmit}>
-                <FormGroup>
-                  <Label for="exampleName">Name</Label>
-                  <Input
-                    id="exampleTextname"
-                    name="Name"
-                    type="text"
-                    value={formData.Name}
-                    onChange={handleChange}
-                    required  
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Label for="exampleEmail">Email</Label>
-                  <Input
-                    id="exampleEmail"
-                    name="Email"
-                    type="email"
-                    value={formData.Email}
-                    onChange={handleChange}
-                    required  
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Label for="exampleText">Text Area</Label>
-                  <Input
-                    id="exampleText"
-                    name="Text"
-                    type="textarea"
-                    value={formData.Text}
-                    onChange={handleChange}
-                    required  
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Label for="exampleMobile">Mobile</Label>
-                  <Input
-                    id="exampleText"
-                    name="mobile"
-                    type="text"
-                    value={formData.mobile}
-                    onChange={handleChange}
-                    required  
-                  />
-                </FormGroup>
-                <Button className="mt-2" type="submit">Submit</Button>
-              </Form>
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Card>
-            <CardBody>
-              <h5>Table Data</h5>
-              <Table striped>
-                <thead>
-                  <tr>
-                    <th>ชื่อ</th>
-                    <th>ข้อความ</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {tableData.map((item, index) => (
-                    <tr key={index}>
-                      <td>{item.attributes.Name}</td>
-                      <td>{item.attributes.Text}</td>
-                      
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
-    </>
+    <Row>
+      <Col xs={12} md={6} lg={4}>
+        <Card>
+          <CardTitle tag="h5" className="border-bottom p-2 mb-0">
+            <i className="bi bi-bell me-2"> </i>
+            Form
+          </CardTitle>
+          <CardBody>
+            <Form className="mt-0 pt-0" onSubmit={handleSubmit}>
+              <FormGroup>
+                <Label for="exampleName">Name</Label>
+                <Input
+                  id="exampleTextname"
+                  name="Name"
+                  type="text"
+                  value={formData.Name}
+                  onChange={handleChange}
+                  required
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="exampleEmail">Email</Label>
+                <Input
+                  id="exampleEmail"
+                  name="Email"
+                  type="email"
+                  value={formData.Email}
+                  onChange={handleChange}
+                  required
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="exampleText">Message</Label>
+                <Input
+                  id="exampleText"
+                  name="Text"
+                  type="textarea"
+                  value={formData.Text}
+                  onChange={handleChange}
+                  style={{ minHeight: "50px", maxHeight: "50px" }} // Adjust height of textarea
+                  required
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="exampleMobile">Mobile</Label>
+                <Input
+                  id="exampleText"
+                  name="mobile"
+                  type="text"
+                  value={formData.mobile}
+                  onChange={handleChange}
+                  required
+                />
+              </FormGroup>
+              <Button className="mt-3 btn btn-success" type="submit">Submit</Button>
+            </Form>
+          </CardBody>
+        </Card>
+      </Col>
+      <Col xs={12} md={6} lg={8}>
+        <Card style={{height: "95%", overflowY: "auto"}}>
+          <CardBody style={{marginTop: "-5px"}}>
+            <h5>World Talk</h5>
+            {tableData.map((item, index) => (
+              <div key={index} className="mt-3 border rounded px-3 py-3">
+                <Row className="justify-content-md-star align-items-center">
+                  <Col xs={12} md={5}>
+                    <p className="mb-0 me-3 text-muted">Name:</p>
+                    <b className="text-warning">{item.attributes.Name}</b>
+                  </Col>
+                  <Col xs={12} md={7}>
+                    <p className="mb-0 me-3 text-muted">Message:</p>
+                    <b className="text-primary d-block d-md-inline">{item.attributes.Text}</b>
+                  </Col>
+                </Row>
+              </div>
+            ))}
+          </CardBody>
+        </Card>
+      </Col>
+    </Row>
   );
 };
 

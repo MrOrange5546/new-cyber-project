@@ -1,0 +1,46 @@
+version: '3'
+name: "cyber-project"
+
+services:
+
+  db:
+    image: ${DB_IMAGE}
+    container_name: database
+    ports:
+      - ${DB_PORTS}
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    restart: always
+    volumes:
+      - ../database/:/var/lib/postgresql/data
+
+  backend:
+    build: backend
+    image: ${APP_IMAGE}
+    container_name: backend-app
+    ports:
+      - ${APP_PORTS}
+    environment:
+      - DATABASE_CLIENT=${DATABASE_CLIENT}
+      - DATABASE_HOST=db
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_SSL=${DATABASE_SSL}
+    depends_on:
+      - db
+    restart: always
+
+  frontend:
+    build: frontend
+    image: ${WEB_IMAGE}
+    container_name: frontend
+    ports:
+      - ${WEB_PORTS}
+    restart: always
+    depends_on:
+      - db
+      - backend
